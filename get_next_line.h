@@ -6,7 +6,7 @@
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:20:09 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/10/04 14:57:12 by vde-leus         ###   ########.fr       */
+/*   Updated: 2022/10/04 17:00:52 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_list	*ft_generate_element(void);
 t_list	*ft_generate_liste(t_list *buffer, int fd);
 t_list	*ft_generate_buffer(t_list *liste);
 char	*ft_traitement_buffer(t_list *buffer);
+void	ft_clean_data(t_list *liste);
 char	*get_next_line(int fd);
 
 #endif

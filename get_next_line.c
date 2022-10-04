@@ -6,7 +6,7 @@
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:19:30 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/10/04 16:52:33 by vde-leus         ###   ########.fr       */
+/*   Updated: 2022/10/04 17:08:45 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_list	*ft_generate_liste(t_list *buffer, int fd)
 		liste = buffer;
 		(buffer)->next = start;
 	}
-	while (read(fd, start->data, BUFFER_SIZE))
+	while (read(fd, start->data, BUFFER_SIZE) > 0)
 	{	
 		if (ft_endligne(start->data) == 0)
 		{
@@ -96,6 +96,23 @@ char	*ft_traitement_buffer(t_list *buffer)
 	return (resultat);
 }
 
+void	ft_clean_data(t_list *liste)
+{
+	t_list	*begin;
+	t_list	*next;
+
+	begin = liste;
+	while (begin->next)
+	{
+		free(begin->data);
+		next = begin->next;
+		free(begin);
+		begin = next;
+	}
+	free(begin->data);
+	free(begin);
+}
+
 char	*get_next_line(int fd)
 {
 	static t_list	*buffer;
@@ -104,6 +121,8 @@ char	*get_next_line(int fd)
 	size_t			i;
 
 	i = 0;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	if (!buffer)
 		buffer = ft_generate_element();
 	if (ft_endligne(buffer->data) == 1)
@@ -121,39 +140,42 @@ char	*get_next_line(int fd)
 	while (resultat[i])
 		resultat[i++] = '\0';
 	buffer = ft_generate_buffer(liste);
+	ft_clean_data(liste);
 	return (resultat);
 }	
 
-int	main(void)
-{
-	char	*resultat;
-	int		fd;
 
-	fd = open("text.txt", O_RDONLY);
-	//fd = 0;
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
-	resultat = get_next_line(fd);
-	printf("LE RESULTAT : %s\n", resultat);
 
-	return (0);
-}
+// int	main(void)
+// {
+// 	char	*resultat;
+// 	int		fd;
+
+// 	fd = open("text.txt", O_RDONLY);
+// 	//fd = 0;
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+// 	resultat = get_next_line(fd);
+// 	printf("LE RESULTAT : %s\n", resultat);
+
+// 	return (0);
+// }
 
