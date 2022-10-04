@@ -6,7 +6,7 @@
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 12:11:00 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/10/04 15:07:00 by vde-leus         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:42:58 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*ft_strjoin(t_list *liste)
 
 	i = 0;
 	j = 0;
+	begin = liste;
 	if (!liste)
 		return (NULL);
 	size_liste = ft_sizelist(liste);

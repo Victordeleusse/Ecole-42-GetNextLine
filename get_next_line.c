@@ -6,7 +6,7 @@
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 11:19:30 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/10/04 15:43:21 by vde-leus         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:52:33 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,19 @@ t_list	*ft_generate_liste(t_list *buffer, int fd)
 		liste = buffer;
 		(buffer)->next = start;
 	}
-	read(fd, start->data, BUFFER_SIZE);
-	while (ft_endligne(start->data) == 0)
-	{
-		next = ft_generate_element();
-		start->next = next;
-		start = next;
-		read(fd, start->data, BUFFER_SIZE);
+	while (read(fd, start->data, BUFFER_SIZE))
+	{	
+		if (ft_endligne(start->data) == 0)
+		{
+			next = ft_generate_element();
+			start->next = next;
+			start = next;
+		}
+		else
+			break ;
 	}
+	if (liste->data[0] == '\0')
+		return (NULL);
 	return (liste);
 }
 
@@ -101,15 +106,15 @@ char	*get_next_line(int fd)
 	i = 0;
 	if (!buffer)
 		buffer = ft_generate_element();
-	//printf("Contenu du buffer : %s\n", buffer->data);
 	if (ft_endligne(buffer->data) == 1)
 	{
 		resultat = ft_traitement_buffer(buffer);
 		return (resultat);
 	}
 	liste = ft_generate_liste(buffer, fd);
+	if (liste == NULL)
+		return (NULL);
 	resultat = ft_strjoin(liste);
-	//printf("le resultat doit etre : %s\n", resultat);
 	while (resultat[i] && resultat[i] != '\n')
 		i++;
 	i = i + 1;
