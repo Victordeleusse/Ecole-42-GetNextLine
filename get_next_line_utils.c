@@ -5,42 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 12:11:00 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/10/04 16:42:58 by vde-leus         ###   ########.fr       */
+/*   Created: 2022/10/10 11:53:13 by vde-leus          #+#    #+#             */
+/*   Updated: 2022/10/10 17:26:18 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(t_list *liste)
+t_list	*ft_generate_element(void)
 {
-	t_list	*begin;
-	char	*resultat;
-	size_t	size_liste;
+	t_list	*element;
 	size_t	i;
-	size_t	j;
 
 	i = 0;
-	j = 0;
-	begin = liste;
-	if (!liste)
+	element = (t_list *)malloc(sizeof(t_list));
+	if (!element)
 		return (NULL);
-	size_liste = ft_sizelist(liste);
-	resultat = (char *)malloc(sizeof(char) * (BUFFER_SIZE * size_liste + 1));
-	if (!resultat)
+	element->data = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!element->data)
 		return (NULL);
-	ft_memset(resultat, '\0', BUFFER_SIZE * size_liste + 1);
-	while (begin)
-	{
-		while (begin->data[j])
-			resultat[i++] = begin->data[j++];
-		begin = begin->next;
-		j = 0;
-	}
-	return (resultat);
+	while (i <= BUFFER_SIZE)
+		element->data[i++] = '\0';
+	element->next = NULL;
+	return (element);
 }
 
-int	ft_endligne(char *str)
+int	ft_fin_ligne(char *str)
 {
 	size_t	i;
 
@@ -54,47 +44,71 @@ int	ft_endligne(char *str)
 	return (0);
 }
 
-size_t	ft_sizelist(t_list *begin_list)
+size_t	ft_liste_size(t_list *liste)
 {
-	size_t	len_list;
+	size_t	len;
 
-	if (!begin_list)
+	if (!liste)
 		return (0);
-	len_list = 0;
-	while (begin_list)
+	len = 0;
+	while (liste)
 	{
-		len_list++;
-		begin_list = begin_list->next;
+		len++;
+		liste = liste->next;
 	}
-	return (len_list);
+	return (len);
 }
 
-void	*ft_memset(void *b, int c, size_t len)
+t_list	*ft_generate_liste(t_list **begin, int fd)
 {
+	t_list	*liste;
+	t_list	*suivant;
+
+	if (!*begin)
+		return (NULL);
+	liste = *begin;
+	if ((*begin)->data[0] != '\0')
+	{	
+		if (ft_fin_ligne((*begin)->data) == 1)
+			return (liste);
+		suivant = ft_generate_element();
+		(*begin)->next = suivant;
+		*begin = suivant;
+	}
+	while (read(fd, (*begin)->data, BUFFER_SIZE) > 0
+		&& ft_fin_ligne((*begin)->data) == 0)
+	{	
+		suivant = ft_generate_element();
+		(*begin)->next = suivant;
+		(*begin) = suivant;
+	}
+	return (liste);
+}
+
+char	*ft_join(t_list *liste)
+{
+	size_t	len;
 	size_t	i;
+	size_t	j;
+	char	*resultat;
+	t_list	*suivant;
 
-	if (!b)
+	len = ft_liste_size(liste);
+	resultat = (char *)malloc(sizeof(char) * (len * BUFFER_SIZE + 1));
+	if (!resultat)
 		return (NULL);
-	i = 0;
-	while (i < len)
+	resultat[len * BUFFER_SIZE] = '\0';
+	j = 0;
+	while (liste->next)
 	{
-		*(unsigned char *)(b + i) = (unsigned char)c;
-		i++;
+		i = 0;
+		while (liste->data[i] && liste->data[i] != '\n')
+			resultat[j++] = liste->data[i++];
+		free(liste->data);
+		suivant = liste->next;
+		free(liste);
+		liste = suivant;
 	}
-	return (b);
-}
-
-t_list	*ft_generate_element(void)
-{
-	t_list	*element;
-
-	element = (t_list *)malloc(sizeof(t_list));
-	if (!element)
-		return (NULL);
-	element->data = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!element->data)
-		return (NULL);
-	ft_memset(element->data, '\0', BUFFER_SIZE + 1);
-	element->next = NULL;
-	return (element);
+	resultat[j] = '\0';
+	return (resultat);
 }

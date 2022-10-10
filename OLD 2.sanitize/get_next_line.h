@@ -5,24 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 11:53:33 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/10/10 17:11:25 by vde-leus         ###   ########.fr       */
+/*   Created: 2022/09/29 14:20:09 by vde-leus          #+#    #+#             */
+/*   Updated: 2022/10/10 13:38:34 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
+
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
 
 typedef struct s_list
 {
@@ -30,12 +31,16 @@ typedef struct s_list
 	struct s_list	*next;
 }t_list;
 
+void	*ft_memset(void *b, int c, size_t len);
+char	*ft_strjoin(t_list *liste);
+int		ft_endligne(char *str);
+size_t	ft_sizelist(t_list *begin_list);
 t_list	*ft_generate_element(void);
-int		ft_fin_ligne(char *str);
-size_t	ft_liste_size(t_list *liste);
-t_list	*ft_generate_liste(t_list **begin, int fd);
-char	*ft_join(t_list *liste);
-void	ft_traitement(char *resultat, t_list **begin);
+
+t_list	*ft_generate_liste(t_list *buffer, int fd);
+void	ft_generate_buffer(t_list *liste, t_list **buffer);
+char	*ft_traitement_buffer(t_list *buffer);
+void	ft_clean_data(t_list *liste);
 char	*get_next_line(int fd);
 
 #endif
