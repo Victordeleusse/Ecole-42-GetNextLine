@@ -6,7 +6,7 @@
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:53:13 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/10/10 17:26:18 by vde-leus         ###   ########.fr       */
+/*   Updated: 2022/10/11 11:36:20 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*ft_join(t_list *liste)
 	while (liste->next)
 	{
 		i = 0;
-		while (liste->data[i] && liste->data[i] != '\n')
+		while (liste->data[i])
 			resultat[j++] = liste->data[i++];
 		free(liste->data);
 		suivant = liste->next;
