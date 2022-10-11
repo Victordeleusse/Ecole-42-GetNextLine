@@ -6,7 +6,7 @@
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 14:02:42 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/10/11 11:38:01 by vde-leus         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:18:21 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ void	ft_traitement(char *resultat, t_list **begin)
 		resultat[j++] = (*begin)->data[i];
 		(*begin)->data[i++] = '\0';
 	}
-	resultat[j] = (*begin)->data[i++];
+	resultat[j] = (*begin)->data[i];
+	if ((*begin)->data[i] == '\n')
+		(*begin)->data[i++] = '\0';
 	if (resultat[j] == '\n')
 		resultat[++j] = '\0';
 	j = 0;
