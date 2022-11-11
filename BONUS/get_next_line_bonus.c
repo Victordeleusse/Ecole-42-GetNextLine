@@ -6,7 +6,7 @@
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 10:41:12 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/11/11 16:40:15 by vde-leus         ###   ########.fr       */
+/*   Updated: 2022/11/11 18:45:18 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ void	ft_clear(t_fdlist **fd_liste, t_fdlist *fd_element)
 		*fd_liste = start->next_fd;
 		free(start->begin->data);
 		free(start->begin);
-		// free(start->next_fd);
 		free(start);
 	}
 	else
@@ -111,7 +110,6 @@ void	ft_clear(t_fdlist **fd_liste, t_fdlist *fd_element)
 		start->next_fd = fd_element->next_fd;
 		free(fd_element->begin->data);
 		free(fd_element->begin);
-		// free(fd_element->next_fd);
 		free(fd_element);
 	}
 }
@@ -139,48 +137,3 @@ char	*get_next_line(int fd)
 	}
 	return (resultat);
 }
-
-// int	main(void)
-// {
-// 	char	*resultat;
-// 	int		fd1;
-// 	int		fd2;
-
-// 	fd1 = open("text.txt", O_RDONLY);
-// 	fd2 = open("text2.txt", O_RDONLY);
-// 	//fd = 0;
-// 	resultat = get_next_line(fd1);
-// 	printf("LE RESULTAT venant de 1 : %s\n", resultat);
-// 	resultat = get_next_line(fd1);
-// 	printf("LE RESULTAT venant de 1 : %s\n", resultat);
-// 	resultat = get_next_line(fd2);
-// 	printf("LE RESULTAT venant de 2 : %s\n", resultat);
-// 	resultat = get_next_line(fd1);
-// 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
-// 	resultat = get_next_line(fd1);
-// 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
-// 	resultat = get_next_line(fd2);
-// 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
-// 	resultat = get_next_line(fd2);
-// 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
-// 	resultat = get_next_line(fd2);
-// 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
-// 	resultat = get_next_line(fd2);
-// 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
-// 	resultat = get_next_line(fd2);
-// 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
-// 	resultat = get_next_line(fd1);
-// 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
-// 	resultat = get_next_line(fd1);
-// 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
-// 	resultat = get_next_line(fd1);
-// 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
-// 	resultat = get_next_line(fd2);
-// 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
-// 	resultat = get_next_line(fd2);
-// 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
-// 	resultat = get_next_line(fd2);
-// 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
-
-// 	return (0);
-// }

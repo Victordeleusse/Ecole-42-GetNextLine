@@ -6,7 +6,7 @@
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 10:41:12 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/11/11 16:38:40 by vde-leus         ###   ########.fr       */
+/*   Updated: 2022/11/11 18:41:38 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,27 @@ t_list	*ft_generate_liste(t_list **begin, int fd)
 	}
 	return (liste);
 }
+
+// t_list	*_my_lst(void)
+// {
+// 	static t_list	lst;
+
+// 	return (&lst);
+// }
+
+/* Mise en place d'une garbage -> recuperation de toutes les adresses
+des elements que je veux free. Une fois recupere sous la forme de liste 
+ou autre -> ft_free_list.
+*/
+
+// void	*ft_malloc(int size, t_list **lst)
+// {
+// 	void	*output;
+
+// 	output = malloc(size);
+// 	lst_addback(lst, lstnew(&output);
+// 	return (output);	
+// }
 
 char	*ft_join(t_list *liste)
 {
@@ -101,7 +122,6 @@ void	ft_clear(t_fdlist **fd_liste, t_fdlist *fd_element)
 		*fd_liste = start->next_fd;
 		free(start->begin->data);
 		free(start->begin);
-		// free(start->next_fd);
 		free(start);
 	}
 	else
@@ -111,7 +131,6 @@ void	ft_clear(t_fdlist **fd_liste, t_fdlist *fd_element)
 		start->next_fd = fd_element->next_fd;
 		free(fd_element->begin->data);
 		free(fd_element->begin);
-		// free(fd_element->next_fd);
 		free(fd_element);
 	}
 }
@@ -151,44 +170,83 @@ char	*get_next_line(int fd)
 // 	//fd = 0;
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT venant de 1 : %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT venant de 1 : %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd2);
 // 	printf("LE RESULTAT venant de 2 : %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd2);
 // 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd2);
 // 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd2);
 // 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd2);
 // 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd2);
 // 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd2);
 // 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd2);
 // 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd2);
 // 	printf("LE RESULTAT  venant de 2: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
+// 	free(resultat);
+//	
 // 	resultat = get_next_line(fd1);
 // 	printf("LE RESULTAT  venant de 1: %s\n", resultat);
+// 	free(resultat);
 
 // 	return (0);
 // }
