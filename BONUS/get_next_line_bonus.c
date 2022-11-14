@@ -6,7 +6,7 @@
 /*   By: vde-leus <vde-leus@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 10:41:12 by vde-leus          #+#    #+#             */
-/*   Updated: 2022/11/11 18:45:18 by vde-leus         ###   ########.fr       */
+/*   Updated: 2022/11/14 16:05:29 by vde-leus         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,9 @@ char	*get_next_line(int fd)
 	liste = ft_generate_liste(&fd_element->begin, fd);
 	resultat = ft_join(liste);
 	ft_traitement(resultat, &fd_element->begin);
-	if (resultat[0] == '\0')
-	{
+	if (fd_element->begin->data[0] == '\0')
 		ft_clear(&fd_liste, fd_element);
-		free(resultat);
-		return (NULL);
-	}
+	if (resultat[0] == '\0')
+		return (free(resultat), NULL);
 	return (resultat);
 }
